@@ -13,7 +13,6 @@ interface SidebarDashboardProps {
 }
 
 export function SidebarDashboard({ items }: SidebarDashboardProps) {
-	const [tasks, setTasks] = useState<number | null>(null)
 	const path = usePathname()
 
 	return (
@@ -23,7 +22,7 @@ export function SidebarDashboard({ items }: SidebarDashboardProps) {
 
 				return (
 					item.title && (
-						<Link key={index} href={"/"}>
+						<Link key={index} href={item.href ? item.href : "/"}>
 							<span
 								className={cn(
 									"group relative flex items-center rounded-md border border-transparent px-3 py-2 text-sm font-medium transition hover:bg-muted/40 hover:text-accent-foreground hover:opacity-100",
@@ -40,12 +39,6 @@ export function SidebarDashboard({ items }: SidebarDashboardProps) {
 									})}
 								/>
 								<span>{item.title}</span>
-
-								{item.title === "Taskboard" && tasks ? (
-									<span className="absolute right-3 top-2 flex h-6 w-6 items-center justify-center rounded-md bg-primary text-xs text-white opacity-100">
-										{tasks}
-									</span>
-								) : null}
 							</span>
 						</Link>
 					)

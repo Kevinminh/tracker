@@ -15,5 +15,10 @@ export const dashboardConfig: DashboardConfig = {
 			href: `/dashboard`,
 			icon: "map",
 		},
+		{
+			title: "My page",
+			href: "/my-page",
+			icon: "user",
+		},
 	],
 }

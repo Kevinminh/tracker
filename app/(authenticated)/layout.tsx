@@ -32,7 +32,7 @@ export default function DashboardLayout({ children, params }: DashboardLayoutPro
 					</div>
 				</aside>
 				<main className="flex max-h-screen w-full flex-1 flex-col overflow-hidden  pb-1.5 pl-3 pr-1.5 pt-3 ">
-					<div className="h-full overflow-auto rounded-lg border border-border bg-background ">{children}</div>
+					<div className=" overflow-auto rounded-lg border border-border bg-background h-full">{children}</div>
 				</main>
 			</div>
 		</div>
