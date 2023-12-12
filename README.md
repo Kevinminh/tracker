@@ -1,11 +1,16 @@
-This project is created using these technologies:
+This project is powered by these technologies:
 
 - NextJS 14
-- Tailwind Css
+- Tailwind CSS
 - PlanetScale (MySQL)
 - Prisma ORM
 - NextAuth
 - Resend
+- Leaflet
+
+## Live demo
+
+[https://quakewatcher.vercel.app]
 
 ## Getting Started
 
