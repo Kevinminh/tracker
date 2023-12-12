@@ -1,4 +1,6 @@
+import { QuakeEmailTemplate } from "@/components/quake-email-template"
 import { db } from "@/lib/db"
+import { resend } from "@/lib/resend"
 import { getCurrentUser } from "@/lib/session"
 import { EarthquakeData } from "@/types"
 import { NextResponse } from "next/server"
@@ -7,6 +9,19 @@ export async function GET(req: Request) {
 	try {
 		const user = await getCurrentUser()
 		if (!user) {
+			return new NextResponse("Unauthorized", { status: 401 })
+		}
+
+		const dbUser = await db.user.findUnique({
+			where: {
+				id: user.id,
+			},
+			select: {
+				emailSubscribed: true,
+			},
+		})
+
+		if (!dbUser) {
 			return new NextResponse("Unauthorized", { status: 401 })
 		}
 
@@ -80,6 +95,20 @@ export async function GET(req: Request) {
 					latitude: record.latitude,
 					favorites: record.favorites,
 				}))
+
+				// Sends email to user ONLY IF SUBSCRIBED
+				if (dbUser.emailSubscribed) {
+					await resend.emails.send({
+						from: "noreply@tsker.io",
+						to: user.email!,
+						subject: `New Earthquake in ${properties.place}`,
+						react: QuakeEmailTemplate({
+							email: user.email!,
+							link: properties.url,
+							location: properties.place,
+						}) as React.ReactElement,
+					})
+				}
 
 				return NextResponse.json(serializedRecords)
 			}

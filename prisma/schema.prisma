@@ -59,6 +59,8 @@ model User {
   accounts Account[]
   sessions Session[]
 
+  emailSubscribed Boolean @default(false)
+
   favorites Favorite[]
 
   @@map(name: "users")

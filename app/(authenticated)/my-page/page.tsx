@@ -3,6 +3,8 @@ import { getCurrentUser } from "@/lib/session"
 import { User } from "@prisma/client"
 import { redirect } from "next/navigation"
 import { FavoriteBtn } from "./_components/favorite-btn"
+import { Switch } from "@/components/ui/switch"
+import { EmailSubBtn } from "./_components/email-sub-btn"
 
 async function getFavorites(userId: User["id"]) {
 	return await db.favorite.findMany({
@@ -23,8 +25,17 @@ export default async function MyPage() {
 
 	const data = await getFavorites(user.id)
 
+	const dbUser = await db.user.findUnique({
+		where: {
+			id: user.id,
+		},
+		select: {
+			emailSubscribed: true,
+		},
+	})
+
 	return (
-		<div className="container h-full py-4">
+		<div className="container h-full py-4 flex flex-col gap-y-6">
 			<div className="border-border border rounded-md p-4">
 				<p className="font-medium mb-3">Favorites</p>
 
@@ -46,6 +57,17 @@ export default async function MyPage() {
 						))}
 					</div>
 				)}
+			</div>
+
+			<div className="border border-border rounded-md p-4">
+				<p className="font-medium mb-3">Settings</p>
+				<div className="rounded border border-border p-3 flex items-center justify-between">
+					<div className="flex items-center">
+						<p>Email notification</p>
+						<p className="text-sm ml-2 text-muted-foreground">({user.email})</p>
+					</div>
+					<EmailSubBtn isEmailSubscribed={dbUser?.emailSubscribed} />
+				</div>
 			</div>
 		</div>
 	)

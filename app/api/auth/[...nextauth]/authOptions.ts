@@ -54,11 +54,7 @@ export const authOptions: NextAuthOptions = {
 					const result = await resend.emails.send({
 						from: "noreply@tsker.io",
 						to: identifier,
-						subject: "You have been invited to join Tsker!",
-						// react: MagicLinkEmailTemplate({
-						//   email: identifier,
-						//   magicLink: url,
-						// }) as React.ReactElement,
+						subject: "You have been invited to join QuakeWatcher!",
 						html: html,
 					})
 					if (result.error) {
@@ -69,7 +65,7 @@ export const authOptions: NextAuthOptions = {
 				const result = await resend.emails.send({
 					from: "noreply@tsker.io",
 					to: identifier,
-					subject: "You have been invited to join QuakePro!",
+					subject: "You have been invited to join QuakeWatcher!",
 					react: MagicLinkEmailTemplate({
 						email: identifier,
 						magicLink: url,
