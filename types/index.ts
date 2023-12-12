@@ -34,7 +34,7 @@ type Properties = {
 	title: string
 }
 
-type Feature = {
+export type Feature = {
 	type: string
 	properties: Properties
 	geometry: Geometry

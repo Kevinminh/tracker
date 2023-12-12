@@ -84,3 +84,39 @@ model VerificationToken {
 }
 
 
+// # Quakes locations
+model QuakeLocation {
+  id        String  @id @default(cuid())
+  mag       Float   // Magnitude
+  place     String  // Location description
+  time      BigInt  // Timestamp of the earthquake
+  updated   BigInt  // Timestamp of last update
+
+
+  url       String  // URL for earthquake information
+  detail    String  // URL for more details from USGS
+  felt      Int?    // Felt reports (nullable)
+  cdi       Int?    // Community Internet Intensity Map reports (nullable)
+  mmi       Float?  // Moment Magnitude Intensity (nullable)
+  alert     String? // Earthquake alert level (nullable)
+  status    String  // Earthquake status
+  tsunami   Int     // Tsunami indicator
+  sig       Int     // Earthquake significance
+  net       String  // Network code
+  code      String  // Event code
+
+  ids       String  // Comma-separated list of event IDs
+  sources   String  // Comma-separated list of event sources
+  types     String  // Comma-separated list of event types
+  nst       Int?    // Number of seismic stations (nullable)
+  dmin      Float?  // Minimum distance to earthquake (nullable)
+
+  
+  rms       Float   // Root Mean Square of the earthquake
+  gap       Int?    // Gap between azimuthally adjacent stations (nullable)
+  magType   String  // Type of magnitude
+  type      String  // Type of event (e.g., earthquake)
+  title     String  // Title/description of the event
+  longitude Float  // Longitude
+  latitude  Float  // Latitude
+}

@@ -6,6 +6,7 @@ import "@/styles/scrollbar.css"
 
 import { SidebarBottomNav } from "@/components/sidebar-bottom-nav"
 import { SidebarDashboard } from "@/components/sidebar-dashboard"
+import { Toaster } from "@/components/ui/toaster"
 
 type DashboardLayoutProps = {
 	children: React.ReactNode
@@ -32,7 +33,10 @@ export default function DashboardLayout({ children, params }: DashboardLayoutPro
 					</div>
 				</aside>
 				<main className="flex max-h-screen w-full flex-1 flex-col overflow-hidden  pb-1.5 pl-3 pr-1.5 pt-3 ">
-					<div className=" overflow-auto rounded-lg border border-border bg-background h-full">{children}</div>
+					<div className=" overflow-auto rounded-lg border border-border bg-background h-full">
+						<Toaster />
+						{children}
+					</div>
 				</main>
 			</div>
 		</div>
