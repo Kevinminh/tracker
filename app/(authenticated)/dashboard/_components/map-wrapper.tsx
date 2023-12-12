@@ -3,14 +3,15 @@ import React, { useEffect, useMemo, useState } from "react"
 import dynamic from "next/dynamic"
 import { Loader2 } from "lucide-react"
 import { toast } from "@/components/ui/use-toast"
-import { QuakeLocation, User } from "@prisma/client"
+import { User } from "@prisma/client"
+import { QuakeLocationWithFavorites } from "@/types"
 
 type MapWrapperProps = {
 	userId: User["id"]
 }
 
 export function MapWrapper({ userId }: MapWrapperProps) {
-	const [data, setData] = useState<QuakeLocation[]>([])
+	const [data, setData] = useState<QuakeLocationWithFavorites[]>([])
 
 	const Map = useMemo(
 		() =>

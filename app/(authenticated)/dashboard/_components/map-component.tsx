@@ -39,8 +39,6 @@ export default function MapComponent({ zoom, earthQuakes, userId }: MapComponent
 		router.refresh()
 	}
 
-	console.log(earthQuakes)
-
 	return (
 		<MapContainer center={positions[0]} zoom={zoom} scrollWheelZoom={true} className="w-[100%] h-[100%]">
 			<TileLayer
@@ -72,8 +70,8 @@ export default function MapComponent({ zoom, earthQuakes, userId }: MapComponent
 											size="icon"
 											variant="ghost"
 											onClick={() => handleFavorite(earthquake.id)}
-											className={cn("bg-gray-500", {
-												"bg-red-500": isFavorited,
+											className={cn("", {
+												"bg-rose-500": isFavorited,
 											})}
 										>
 											<Icons.heart className="w-4 h-4 " />
