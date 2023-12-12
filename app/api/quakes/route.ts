@@ -30,26 +30,12 @@ export async function GET(req: Request) {
 						id: feature.id,
 						mag: properties.mag,
 						place: properties.place,
-						time: BigInt(properties.time),
-						updated: BigInt(properties.updated),
+						time: properties.time, // Use as number
+						updated: properties.updated, // Use as number
 						url: properties.url,
 						detail: properties.detail,
 						felt: properties.felt ?? null,
 						cdi: properties.cdi ?? null,
-						mmi: properties.mmi ?? null,
-						alert: properties.alert ?? null,
-						status: properties.status,
-						tsunami: properties.tsunami,
-						sig: properties.sig,
-						net: properties.net,
-						code: properties.code,
-						ids: properties.ids,
-						sources: properties.sources,
-						types: properties.types,
-						nst: properties.nst ?? null,
-						dmin: properties.dmin ?? null,
-						rms: properties.rms,
-						gap: properties.gap ?? null,
 						magType: properties.magType,
 						type: properties.type,
 						title: properties.title,
@@ -70,6 +56,7 @@ export async function GET(req: Request) {
 
 		return NextResponse.json(existingRecords)
 	} catch (error: any) {
+		console.log(error)
 		return new NextResponse("Internal Server Error", { status: 500 })
 	}
 }

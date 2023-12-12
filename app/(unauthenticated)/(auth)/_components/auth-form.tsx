@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
-import { userAuthSchema } from "@/app/(auth)/_components/schema"
+import { userAuthSchema } from "@/app/(unauthenticated)/(auth)/_components/schema"
 import { Loader2 } from "lucide-react"
 import { GithubLogo, GoogleSVG } from "@/components/svg"
 
@@ -30,7 +30,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 	})
 
 	const [isLoading, setIsLoading] = useState<boolean>(false)
-	const [isGithubLoading, setIsGithubLoading] = useState<boolean>(false)
+	// const [isGithubLoading, setIsGithubLoading] = useState<boolean>(false)
 	const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false)
 	const searchparams = useSearchParams()
 	const originFrom = searchparams?.get("from")
@@ -77,7 +77,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 							autoCapitalize="none"
 							autoComplete="email"
 							autoCorrect="off"
-							disabled={isLoading || isGithubLoading}
+							disabled={isLoading}
 							{...register("email")}
 						/>
 					</div>
@@ -107,7 +107,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 				Google
 			</Button>
 
-			<Button
+			{/* <Button
 				type="button"
 				variant="outline"
 				onClick={() => {
@@ -117,7 +117,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 			>
 				{isGithubLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <GithubLogo className="mr-2 h-4 w-4" />}
 				Github
-			</Button>
+			</Button> */}
 		</div>
 	)
 }

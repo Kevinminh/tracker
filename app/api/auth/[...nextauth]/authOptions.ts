@@ -8,7 +8,7 @@ import GoogleProvider from "next-auth/providers/google"
 
 import { db } from "@/lib/db"
 import { resend } from "@/lib/resend"
-import { MagicLinkEmailTemplate } from "@/app/(auth)/_components/email-template"
+import { MagicLinkEmailTemplate } from "@/app/(unauthenticated)/(auth)/_components/email-template"
 
 export const authOptions: NextAuthOptions = {
 	// huh any! I know.

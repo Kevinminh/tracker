@@ -1,8 +1,6 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { User } from "next-auth"
 import { signOut } from "next-auth/react"
 
@@ -17,14 +15,12 @@ import {
 import { Icons } from "@/components/icons"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { UserAvatar } from "@/components/user-avatar"
-import { cn } from "@/lib/utils"
 
 interface UserMenuProps extends React.HTMLAttributes<HTMLDivElement> {
 	user: Pick<User, "name" | "image" | "email">
 }
 
 export function UserMenu({ user }: UserMenuProps) {
-	const path = usePathname()
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className="flex items-center">

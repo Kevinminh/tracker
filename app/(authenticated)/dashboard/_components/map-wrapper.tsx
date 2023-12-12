@@ -26,6 +26,8 @@ export function MapWrapper() {
 		async function getData() {
 			const res = await fetch("/api/quakes")
 
+			console.log(res)
+
 			if (!res.ok) {
 				return toast({
 					title: "Something went wrong",
@@ -37,11 +39,9 @@ export function MapWrapper() {
 		getData()
 	}, [])
 
-	console.log(data)
-
 	return (
 		<div className=" h-full">
-			<Map zoom={5} initPosition={[51.505, -0.09]} earthQuakes={data} />
+			<Map zoom={2} earthQuakes={data} />
 		</div>
 	)
 }

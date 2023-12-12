@@ -10,19 +10,18 @@ import { LatLngExpression, LatLngTuple } from "leaflet"
 import { QuakeLocation } from "@prisma/client"
 
 type MapComponentProps = {
-	initPosition: LatLngExpression
 	zoom: number
 	earthQuakes: QuakeLocation[]
 }
 
-export default function MapComponent({ initPosition, zoom, earthQuakes }: MapComponentProps) {
+export default function MapComponent({ zoom, earthQuakes }: MapComponentProps) {
 	const positions = earthQuakes.map((quake) => [quake.latitude, quake.longitude] as LatLngTuple)
 	if (!earthQuakes.length) {
 		return <p>Loading...</p>
 	}
 
 	return (
-		<MapContainer center={initPosition} zoom={zoom} scrollWheelZoom={false} className="w-[100%] h-[100%]">
+		<MapContainer center={positions[0]} zoom={zoom} scrollWheelZoom={false} className="w-[100%] h-[100%]">
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
