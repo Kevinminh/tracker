@@ -8,6 +8,9 @@ This project is powered by these technologies:
 - Resend
 - Leaflet
 
+## Live demo
+[https://quakewatcher.vercel.app]
+
 ## Getting Started
 
 First, install the necessary packages
