@@ -41,7 +41,7 @@ export function MapWrapper() {
 
 	return (
 		<div className=" h-full">
-			<Map zoom={2} earthQuakes={data} />
+			<Map zoom={4} earthQuakes={data} />
 		</div>
 	)
 }

@@ -1,3 +1,4 @@
+import { FeatureCard } from "@/components/feature-card"
 import { GlowButton } from "@/components/glow-button"
 import { Particles } from "@/components/particles"
 import { GithubLogo } from "@/components/svg"
@@ -7,7 +8,7 @@ import Link from "next/link"
 
 export default async function Home() {
 	return (
-		<main className="flex items-center justify-center h-screen ">
+		<main className="flex flex-col  h-screen ">
 			<Particles className="pointer-events-none absolute inset-0" quantity={50} />
 			<section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
 				<div className="container flex max-w-[64rem] flex-col items-center gap-10 text-center">
@@ -35,6 +36,34 @@ export default async function Home() {
 							</Link>
 						</div>
 					</div>
+				</div>
+			</section>
+			<section id="features" className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24">
+				<div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+					<h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">Features</h2>
+					{/* <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+						Feature-Rich Functionality for Peak Efficiency: Advanced Task Management, Automated Billing, Secure Document
+						Storage, and Robust Client Interaction Made Simple
+					</p> */}
+				</div>
+
+				<div className="mx-auto grid justify-center gap-5 sm:grid-cols-2 md:max-w-[64rem]">
+					<FeatureCard
+						title="Track Earthquakes"
+						desc="Uncover real-time global seismic insights to stay informed and make proactive decisions. Explore the latest earthquake data."
+					/>
+					<FeatureCard
+						title="Set favorite locations"
+						desc="Customize your alerts by saving preferred locations, ensuring you receive relevant earthquake updates where it matters most."
+					/>
+					<FeatureCard
+						title="Email notifications"
+						desc="Get instant email alerts for new earthquakes in your selected areas, keeping you in the loop and ready to respond."
+					/>
+					<FeatureCard
+						title="More to come..."
+						desc="Our commitment to continuous improvement means exciting features are on the horizon. Stay tuned for more or join our discord server!"
+					/>
 				</div>
 			</section>
 		</main>
