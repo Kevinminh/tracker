@@ -2,7 +2,7 @@ import { db } from "@/lib/db"
 import { getCurrentUser } from "@/lib/session"
 import { User } from "@prisma/client"
 import { redirect } from "next/navigation"
-import React from "react"
+import { FavoriteBtn } from "./_components/favorite-btn"
 
 async function getFavorites(userId: User["id"]) {
 	return await db.favorite.findMany({
@@ -22,26 +22,30 @@ export default async function MyPage() {
 	}
 
 	const data = await getFavorites(user.id)
-	console.log(data)
 
 	return (
 		<div className="container h-full py-4">
 			<div className="border-border border rounded-md p-4">
-				<p className="font-medium">Favorites</p>
+				<p className="font-medium mb-3">Favorites</p>
 
-				<div className="h-44 flex items-center justify-center">
-					{!data.length ? (
-						<div>You have no favorites yet.</div>
-					) : (
-						<div>
-							<div>
-								{data.map((favorite) => (
-									<p key={favorite.id}>{favorite.id}</p>
-								))}
+				{!data.length ? (
+					<div className="h-44 flex items-center justify-center">You have no favorites yet.</div>
+				) : (
+					<div className="flex flex-col space-y-2">
+						{data.map((favorite) => (
+							<div
+								className="bg-card border border-border rounded-md p-4 flex items-start justify-between"
+								key={favorite.id}
+							>
+								<p>{favorite.id}</p>
+
+								<div className="flex items-center gap-x-2">
+									<FavoriteBtn favoriteId={favorite.id} />
+								</div>
 							</div>
-						</div>
-					)}
-				</div>
+						))}
+					</div>
+				)}
 			</div>
 		</div>
 	)

@@ -1,9 +1,16 @@
 import { db } from "@/lib/db"
+import { getCurrentUser } from "@/lib/session"
 import { EarthquakeData } from "@/types"
 import { NextResponse } from "next/server"
 
 export async function GET(req: Request) {
 	try {
+		const user = await getCurrentUser()
+		if (!user) {
+			return new NextResponse("Unauthorized", { status: 401 })
+		}
+
+		// TODO PARSE THIS DATA
 		const apiUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson"
 		const res = await fetch(apiUrl)
 

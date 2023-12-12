@@ -38,7 +38,7 @@ export default async function Home() {
 					</div>
 				</div>
 			</section>
-			<section id="features" className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24">
+			<section id="features" className="container space-y-6 bg-slate-50 py-6 dark:bg-transparent md:py-10 lg:py-20">
 				<div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
 					<h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">Features</h2>
 					{/* <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
