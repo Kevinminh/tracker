@@ -5,6 +5,7 @@ import { redirect } from "next/navigation"
 import { FavoriteBtn } from "./_components/favorite-btn"
 import { Switch } from "@/components/ui/switch"
 import { EmailSubBtn } from "./_components/email-sub-btn"
+import { ActionTooltip } from "@/components/action-tooltip"
 
 async function getFavorites(userId: User["id"]) {
 	return await db.favorite.findMany({
@@ -63,7 +64,9 @@ export default async function MyPage() {
 				<p className="font-medium mb-3">Settings</p>
 				<div className="rounded border border-border p-3 flex items-center justify-between">
 					<div className="flex items-center">
-						<p>Email notification</p>
+						<ActionTooltip label="Receive emails whenever a new earthquake is happening">
+							<p className="select-none">Email notification</p>
+						</ActionTooltip>
 						<p className="text-sm ml-2 text-muted-foreground">({user.email})</p>
 					</div>
 					<EmailSubBtn isEmailSubscribed={dbUser?.emailSubscribed} />
