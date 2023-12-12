@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
 	title: "QuakeWatch Pro",
-	description: "Real-time gateway",
+	description: "Real-time gateway!",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
