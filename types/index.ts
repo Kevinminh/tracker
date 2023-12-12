@@ -1,4 +1,5 @@
 import { Icons } from "@/components/icons"
+import { Favorite, QuakeLocation } from "@prisma/client"
 
 type Geometry = {
 	type: string
@@ -86,4 +87,8 @@ export type MainNavItem = NavItem
 export type DashboardConfig = {
 	mainNav: MainNavItem[]
 	sidebarNav: SidebarNavItem[]
+}
+
+export type QuakeLocationWithFavorites = QuakeLocation & {
+	favorites: Favorite[]
 }

@@ -1,9 +1,17 @@
+import { getCurrentUser } from "@/lib/session"
 import { MapWrapper } from "./_components/map-wrapper"
+import { redirect } from "next/navigation"
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+	const user = await getCurrentUser()
+
+	if (!user) {
+		return redirect("/sign-in")
+	}
+
 	return (
 		<div className="h-full">
-			<MapWrapper />
+			<MapWrapper userId={user.id} />
 		</div>
 	)
 }

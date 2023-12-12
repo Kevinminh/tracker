@@ -3,9 +3,13 @@ import React, { useEffect, useMemo, useState } from "react"
 import dynamic from "next/dynamic"
 import { Loader2 } from "lucide-react"
 import { toast } from "@/components/ui/use-toast"
-import { QuakeLocation } from "@prisma/client"
+import { QuakeLocation, User } from "@prisma/client"
 
-export function MapWrapper() {
+type MapWrapperProps = {
+	userId: User["id"]
+}
+
+export function MapWrapper({ userId }: MapWrapperProps) {
 	const [data, setData] = useState<QuakeLocation[]>([])
 
 	const Map = useMemo(
@@ -26,8 +30,6 @@ export function MapWrapper() {
 		async function getData() {
 			const res = await fetch("/api/quakes")
 
-			console.log(res)
-
 			if (!res.ok) {
 				return toast({
 					title: "Something went wrong",
@@ -41,7 +43,7 @@ export function MapWrapper() {
 
 	return (
 		<div className=" h-full">
-			<Map zoom={4} earthQuakes={data} />
+			<Map zoom={4} earthQuakes={data} userId={userId} />
 		</div>
 	)
 }

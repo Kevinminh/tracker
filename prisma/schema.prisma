@@ -56,20 +56,10 @@ model User {
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
 
-  onboardingStarted Boolean @default(false)
-  onboardingCompleted Boolean @default(false)
-
   accounts Account[]
   sessions Session[]
 
-  invited Boolean @default(false)
-  pendingInvite Boolean @default(true)
-  invitedBy String?
-
-  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
-  stripePriceId          String?   @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+  favorites Favorite[]
 
   @@map(name: "users")
 }
@@ -97,13 +87,33 @@ model QuakeLocation {
   felt Int? // Felt reports (nullable)
   cdi Int? // Community Internet Intensity Map reports (nullable)
 
-
-
-
   magType   String  // Type of magnitude
   type      String  // Type of event (e.g., earthquake)
   title     String  // Title/description of the event
-  longitude Float  // Longitude
-  latitude  Float  // Latitude
+  longitude Float  
+  latitude  Float  
+
+  favorites Favorite[]
+
+  createdAt         DateTime @default(now()) 
+  updatedAt         DateTime @default(now()) 
+
+}
+
+model Favorite {
+  id String @id @default(cuid())
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  quakeLocationId String
+  quakeLocation QuakeLocation @relation(fields: [quakeLocationId], references: [id], onDelete: Cascade) 
+
+  createdAt         DateTime @default(now()) 
+  updatedAt         DateTime @default(now()) 
+
+
+  @@index([userId])
+  @@index([quakeLocationId])
 
 }
