@@ -1,5 +1,4 @@
 "use client"
-import * as React from "react"
 
 import "leaflet/dist/leaflet.css"
 import "leaflet-defaulticon-compatibility"
@@ -12,9 +11,9 @@ import Link from "next/link"
 import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
 import { createFavorite } from "../_actions/create-favorite"
 import { QuakeLocationWithFavorites } from "@/types"
+import { useEffect, useState } from "react"
 
 type MapComponentProps = {
 	zoom: number
@@ -23,9 +22,18 @@ type MapComponentProps = {
 }
 
 export default function MapComponent({ zoom, earthQuakes, userId }: MapComponentProps) {
-	const router = useRouter()
+	const [favoriteQuakeIds, setFavoriteQuakeIds] = useState<string[]>([])
+
+	useEffect(() => {
+		// Populate favoriteQuakeIds
+		const quakeIds = earthQuakes
+			.filter((quake) => quake.favorites.some((favorite) => favorite.userId === userId))
+			.map((quake) => quake.id)
+		setFavoriteQuakeIds(quakeIds)
+	}, [earthQuakes, userId])
 
 	const positions = earthQuakes.map((quake) => [quake.latitude, quake.longitude] as LatLngTuple)
+
 	if (!earthQuakes.length) {
 		return (
 			<div className="flex h-full items-center justify-center">
@@ -36,7 +44,7 @@ export default function MapComponent({ zoom, earthQuakes, userId }: MapComponent
 
 	async function handleFavorite(locationId: QuakeLocation["id"]) {
 		await createFavorite(userId, locationId)
-		router.refresh()
+		setFavoriteQuakeIds((prevState) => [...prevState, locationId])
 	}
 
 	return (
@@ -46,7 +54,7 @@ export default function MapComponent({ zoom, earthQuakes, userId }: MapComponent
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
 			{earthQuakes.map((earthquake, index) => {
-				const isFavorited = earthquake.favorites.some((favorite) => favorite.userId === userId)
+				const isFavorited = favoriteQuakeIds.includes(earthquake.id)
 
 				return (
 					<Marker key={index} position={positions[index]}>
@@ -84,7 +92,6 @@ export default function MapComponent({ zoom, earthQuakes, userId }: MapComponent
 									</div>
 								</div>
 							</div>
-							{/* Add more information here */}
 						</Popup>
 					</Marker>
 				)

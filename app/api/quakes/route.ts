@@ -5,6 +5,35 @@ import { getCurrentUser } from "@/lib/session"
 import { EarthquakeData } from "@/types"
 import { NextResponse } from "next/server"
 
+async function getExistingRecords() {
+	const existingRecords = await db.quakeLocation.findMany({
+		orderBy: {
+			time: "desc",
+		},
+		include: {
+			favorites: true,
+		},
+	})
+	// We need to map this because the BigInt type is not supported by the JSON serializer (TIME AND UPDATED)
+	return existingRecords.map((record) => ({
+		id: record.id,
+		mag: record.mag,
+		place: record.place,
+		time: Number(record.time),
+		updated: Number(record.updated),
+		url: record.url,
+		detail: record.detail,
+		felt: record.felt,
+		cdi: record.cdi,
+		magType: record.magType,
+		type: record.type,
+		title: record.title,
+		longitude: record.longitude,
+		latitude: record.latitude,
+		favorites: record.favorites,
+	}))
+}
+
 export async function GET(req: Request) {
 	try {
 		const user = await getCurrentUser()
@@ -43,7 +72,6 @@ export async function GET(req: Request) {
 				},
 			})
 			// If the record does not exists, create it
-
 			if (!existingRecord) {
 				const properties = feature.properties
 				const geometry = feature.geometry.coordinates
@@ -67,34 +95,8 @@ export async function GET(req: Request) {
 					},
 				})
 
-				// Return existing records
-				const existingRecords = await db.quakeLocation.findMany({
-					orderBy: {
-						time: "desc",
-					},
-					include: {
-						favorites: true,
-					},
-				})
-
 				// Convert BigInt to string for serialization
-				const serializedRecords = existingRecords.map((record) => ({
-					id: record.id,
-					mag: record.mag,
-					place: record.place,
-					time: Number(record.time),
-					updated: Number(record.updated),
-					url: record.url,
-					detail: record.detail,
-					felt: record.felt,
-					cdi: record.cdi,
-					magType: record.magType,
-					type: record.type,
-					title: record.title,
-					longitude: record.longitude,
-					latitude: record.latitude,
-					favorites: record.favorites,
-				}))
+				const serializedRecords = await getExistingRecords()
 
 				// Sends email to user ONLY IF SUBSCRIBED
 				if (dbUser.emailSubscribed) {
@@ -114,34 +116,8 @@ export async function GET(req: Request) {
 			}
 		}
 
-		// Return existing records
-		const existingRecords = await db.quakeLocation.findMany({
-			orderBy: {
-				time: "desc",
-			},
-			include: {
-				favorites: true,
-			},
-		})
-
 		// Convert BigInt to string for serialization
-		const serializedRecords = existingRecords.map((record) => ({
-			id: record.id,
-			mag: record.mag,
-			place: record.place,
-			time: Number(record.time),
-			updated: Number(record.updated),
-			url: record.url,
-			detail: record.detail,
-			felt: record.felt,
-			cdi: record.cdi,
-			magType: record.magType,
-			type: record.type,
-			title: record.title,
-			longitude: record.longitude,
-			latitude: record.latitude,
-			favorites: record.favorites,
-		}))
+		const serializedRecords = await getExistingRecords()
 
 		return NextResponse.json(serializedRecords)
 	} catch (error: any) {
