@@ -28,12 +28,6 @@ export default function SignInPage() {
 					</h1>
 				</div>
 				<UserAuthForm />
-
-				<p className="px-8 text-center text-sm text-muted-foreground">
-					<Link href="/register" className="underline underline-offset-4 hover:opacity-90">
-						Don&apos;t have an account? Sign Up
-					</Link>
-				</p>
 			</div>
 		</div>
 	)
