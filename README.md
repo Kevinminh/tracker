@@ -10,8 +10,8 @@ This project is powered by these technologies:
 
 ## Live demo
 
-```bash
 https://tracker-mauve.vercel.app
+```bash
 Login using magic link (email) or Google.
 ```
 
