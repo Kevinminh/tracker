@@ -1,6 +1,6 @@
 This project is powered by these technologies:
 
-- NextJS 14
+- NextJS 14 (React & NodeJs)
 - Tailwind CSS
 - PlanetScale (MySQL)
 - Prisma ORM
