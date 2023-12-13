@@ -8,6 +8,7 @@ export async function createFavorite(userId: User["id"], locationId: QuakeLocati
 		data: {
 			userId: userId,
 			quakeLocationId: locationId,
+			quakeLocationEuropeId: locationId,
 		},
 	})
 }
