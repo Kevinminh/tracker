@@ -29,8 +29,8 @@ export function MapWrapper({ userId }: MapWrapperProps) {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await fetch("/api/quakes") // 1) Fetches data, updates the table and sends notifications (Expensive & slow)
-			// const res = await fetch("/api/quakes-from-db") // 2) Fetches data directly from the database (FASTER and CHEAPER on long run)
+			// const res = await fetch("/api/quakes") // 1) Fetches data, updates the table and sends notifications (Expensive & slow)
+			const res = await fetch("/api/quakes-from-db") // 2) Fetches data directly from the database (FASTER and CHEAPER on long run)
 			// const res = await fetch("/api/quakes-from-db-europe") // 3) Testing purposes to fetch quake data from Europe ONLY
 			// TODO: merge USA and Europe data to same db table
 
