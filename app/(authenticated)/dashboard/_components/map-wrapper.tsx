@@ -19,7 +19,7 @@ export function MapWrapper({ userId }: MapWrapperProps) {
 				loading: () => (
 					<div className="flex items-center justify-center h-full">
 						<Loader2 className="w-6 h-6 animate-spin mr-2" />
-						<p>Map is loading</p>
+						<p>Loading map...</p>
 					</div>
 				),
 				ssr: false,

@@ -38,8 +38,9 @@ export default function MapComponent({ zoom, earthQuakes, userId }: MapComponent
 	// If the app is new, there will be no earthquakes - therefore we can try to set [] as null instead for default value.
 	if (!earthQuakes.length) {
 		return (
-			<div className="flex h-full items-center justify-center">
+			<div className="flex h-full items-center justify-center gap-x-2">
 				<Icons.spinner className="w-6 h-6 animate-spin" />
+				Loading data...
 			</div>
 		)
 	}
