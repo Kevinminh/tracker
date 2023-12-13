@@ -3,36 +3,8 @@ import { USA_QUAKE_API_URL } from "@/constants/api-url"
 import { db } from "@/lib/db"
 import { resend } from "@/lib/resend"
 import { EarthquakeData } from "@/types"
+import { getExistingRecords } from "@/utils/get-existing-records"
 import { NextResponse } from "next/server"
-
-async function getExistingRecords() {
-	const existingRecords = await db.quakeLocation.findMany({
-		orderBy: {
-			time: "desc",
-		},
-		include: {
-			favorites: true,
-		},
-	})
-	// We need to map this because the BigInt type is not supported by the JSON serializer (TIME AND UPDATED)
-	return existingRecords.map((record) => ({
-		id: record.id,
-		mag: record.mag,
-		place: record.place,
-		time: Number(record.time),
-		updated: Number(record.updated),
-		url: record.url,
-		detail: record.detail,
-		felt: record.felt,
-		cdi: record.cdi,
-		magType: record.magType,
-		type: record.type,
-		title: record.title,
-		longitude: record.longitude,
-		latitude: record.latitude,
-		favorites: record.favorites,
-	}))
-}
 
 export async function GET(req: Request) {
 	try {
@@ -51,7 +23,9 @@ export async function GET(req: Request) {
 					id: feature.id,
 				},
 			})
+
 			// If the record does not exists, create it
+			// TODO: Consider using patch operation instead // Features can be large {db.$transaction}
 			if (!existingRecord) {
 				const properties = feature.properties
 				const geometry = feature.geometry.coordinates
@@ -89,6 +63,7 @@ export async function GET(req: Request) {
 				const emails = dbUsers.map((user) => user.email)
 
 				// Sends email to user ONLY IF SUBSCRIBED
+				// TODO: Single email per quake vs. aggregate quakes and send at a certain time?
 				await resend.emails.send({
 					from: "noreply@tsker.io", // Using my own domain to send emails
 					to: emails as string[],
@@ -101,9 +76,8 @@ export async function GET(req: Request) {
 
 				return NextResponse.json(serializedRecords)
 			}
-
-			return new NextResponse("ok", { status: 200 })
 		}
+		return new NextResponse("ok", { status: 200 })
 	} catch (error: any) {
 		return new NextResponse("Internal Server Error", { status: 500 })
 	}

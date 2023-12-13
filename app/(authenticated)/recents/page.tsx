@@ -8,8 +8,8 @@ import { toast } from "@/components/ui/use-toast"
 import { cn } from "@/lib/utils"
 import { formatDateRelative } from "@/utils/date-format"
 import { QuakeLocation } from "@prisma/client"
-import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+
 // import { db } from "@/lib/db"
 
 // Uncomment if we want to use Server-side rendering

@@ -34,6 +34,8 @@ export default function MapComponent({ zoom, earthQuakes, userId }: MapComponent
 
 	const positions = earthQuakes.map((quake) => [quake.latitude, quake.longitude] as LatLngTuple)
 
+	// Edge situation: Bec
+	// If the app is new, there will be no earthquakes - therefore we can try to set [] as null instead for default value.
 	if (!earthQuakes.length) {
 		return (
 			<div className="flex h-full items-center justify-center">
@@ -54,7 +56,7 @@ export default function MapComponent({ zoom, earthQuakes, userId }: MapComponent
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
 			{earthQuakes.map((earthquake, index) => {
-				const isFavorited = favoriteQuakeIds.includes(earthquake.id)
+				const isFavorited = favoriteQuakeIds?.includes(earthquake.id)
 
 				return (
 					<Marker key={index} position={positions[index]}>

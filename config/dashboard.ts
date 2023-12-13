@@ -26,5 +26,10 @@ export const dashboardConfig: DashboardConfig = {
 			href: "/my-page",
 			icon: "user",
 		},
+		{
+			title: "Test",
+			href: "/test",
+			icon: "trash",
+		},
 	],
 }

@@ -7,6 +7,9 @@ import { FavoriteBtn } from "./_components/favorite-btn"
 import { EmailSubBtn } from "./_components/email-sub-btn"
 import { ActionTooltip } from "@/components/action-tooltip"
 
+// This is a server-side function (purely for show)
+// I would consider moving this to a separate file
+// For standards: Set to either to server-side only OR client-side only - not both
 async function getFavorites(userId: User["id"]) {
 	return await db.favorite.findMany({
 		where: {

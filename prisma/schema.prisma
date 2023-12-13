@@ -28,8 +28,8 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   session_state     String?
-  createdAt         DateTime @default(now()) @map(name: "created_at")
-  updatedAt         DateTime @default(now()) @map(name: "updated_at")
+  createdAt         DateTime @default(now()) 
+  updatedAt         DateTime @default(now()) 
 
   @@unique([provider, providerAccountId])
   @@map(name: "accounts")
@@ -53,8 +53,8 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @default(now()) @map(name: "updated_at")
+  createdAt     DateTime  @default(now()) 
+  updatedAt     DateTime  @default(now()) 
 
   accounts Account[]
   sessions Session[]
@@ -81,20 +81,42 @@ model QuakeLocation {
   id String @id @default(cuid())
 
   mag Float // Magnitude
-  place String // Location description
+  place String 
   time BigInt // Timestamp of the earthquake
   updated BigInt // Timestamp of last update
-  url String // URL for earthquake information
+  url String 
   detail String // URL for more details from USGS
-  felt Int? // Felt reports (nullable)
+  felt Int? 
   cdi Int? // Community Internet Intensity Map reports (nullable)
 
   magType   String  // Type of magnitude
   type      String  // Type of event (e.g., earthquake)
-  title     String  // Title/description of the event
+  title     String  
   longitude Float  
   latitude  Float  
 
+  favorites Favorite[]
+
+  createdAt         DateTime @default(now()) 
+  updatedAt         DateTime @default(now()) 
+
+}
+
+// TODO: Rename after finished testing
+model TestLocationEurope {
+  id String @id @default(cuid())
+
+  mag Float // Magnitude
+  place String 
+  time DateTime // Timestamp of the earthquake
+  updated DateTime // Timestamp of last update
+  felt Int? 
+  cdi Int? // Community Internet Intensity Map reports (nullable)
+
+  magType   String  // Type of magnitude
+  title     String  
+  longitude Float  
+  latitude  Float  
   favorites Favorite[]
 
   createdAt         DateTime @default(now()) 
@@ -111,11 +133,14 @@ model Favorite {
   quakeLocationId String
   quakeLocation QuakeLocation @relation(fields: [quakeLocationId], references: [id], onDelete: Cascade) 
 
+  quakeLocationEuropeId String
+  quakeLocationEurope TestLocationEurope @relation(fields: [quakeLocationEuropeId], references: [id], onDelete: Cascade) 
+
   createdAt         DateTime @default(now()) 
   updatedAt         DateTime @default(now()) 
 
-
   @@index([userId])
   @@index([quakeLocationId])
+  @@index([quakeLocationEuropeId])
 
 }

@@ -35,9 +35,42 @@ type Properties = {
 	title: string
 }
 
+type PropertiesEurope = {
+	mag: number
+	flynn_region: string
+	time: string
+	lastupdate: string
+	tz: null | string
+	felt: null | number
+	cdi: null | number
+	mmi: null | number
+	alert: null | string
+	status: string
+	tsunami: number
+	sig: number
+	net: string
+	code: string
+	ids: string
+	sources: string
+	types: string
+	nst: null | number
+	dmin: null | number
+	rms: number
+	gap: null | number
+	magtype: string
+	title: string
+}
+
 export type Feature = {
 	type: string
 	properties: Properties
+	geometry: Geometry
+	id: string
+}
+
+export type FeatureEurope = {
+	type: string
+	properties: PropertiesEurope
 	geometry: Geometry
 	id: string
 }
@@ -57,6 +90,13 @@ export type EarthquakeData = {
 	type: string
 	metadata: Metadata
 	features: Feature[]
+	bbox: Bbox
+}
+
+export type EarthQuakeDataEurope = {
+	type: string
+	metadata: Metadata
+	features: FeatureEurope[]
 	bbox: Bbox
 }
 

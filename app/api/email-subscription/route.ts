@@ -15,9 +15,7 @@ export async function PATCH(req: Request) {
 		}
 
 		const json = await req.json()
-
 		const body = routeBody.parse(json)
-		console.log(body)
 
 		await db.user.update({
 			where: {

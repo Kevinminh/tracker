@@ -1,7 +1,7 @@
 {
 	"crons": [
 		{
-			"path": "/api/fetch-daily-quakes",
+			"path": "/api/daily-quakes",
 			"schedule": "0 0 * * *"
 		}
 	]
