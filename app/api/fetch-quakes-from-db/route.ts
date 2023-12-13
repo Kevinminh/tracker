@@ -8,14 +8,15 @@ export async function GET(req: Request) {
 		if (!session) {
 			return new NextResponse("Unauthorized", { status: 401 })
 		}
-		const allQuakes = await db.quakeLocation.findMany({
-			orderBy: {
-				updated: "desc",
+
+		const quakes = await db.quakeLocation.findMany({
+			include: {
+				favorites: true,
 			},
 		})
 
-		// Convert BigInt to string for serialization
-		const serializedRecords = allQuakes.map((record) => ({
+		// Return the records as serialized JSON
+		const serializedRecords = quakes.map((record) => ({
 			id: record.id,
 			mag: record.mag,
 			place: record.place,
@@ -30,11 +31,12 @@ export async function GET(req: Request) {
 			title: record.title,
 			longitude: record.longitude,
 			latitude: record.latitude,
+			favorites: record.favorites,
 		}))
 
 		return NextResponse.json(serializedRecords)
 	} catch (error: any) {
 		console.log(error)
-		return new NextResponse("Internal Server Error", { status: 500 })
+		return new NextResponse("Internal Error", { status: 500 })
 	}
 }

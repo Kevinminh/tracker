@@ -29,7 +29,10 @@ export function MapWrapper({ userId }: MapWrapperProps) {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await fetch("/api/quakes")
+			// const res = await fetch("/api/quakes") // 1) Fetches data, updates the table and sends notifications (Expensive & slow)
+			const res = await fetch("/api/fetch-quakes-from-db") // 2) Fetches data directly from the database (FASTER and CHEAPER on long run)
+
+			// 2 has disadvantage that cron-jobs are limited to only once daily (free tier) - so the db is not going to be real time
 
 			if (!res.ok) {
 				return toast({

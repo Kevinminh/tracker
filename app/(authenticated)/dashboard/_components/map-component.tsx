@@ -37,7 +37,7 @@ export default function MapComponent({ zoom, earthQuakes, userId }: MapComponent
 	if (!earthQuakes.length) {
 		return (
 			<div className="flex h-full items-center justify-center">
-				<Icons.spinner className="w-6 h-6 animate-ping" />
+				<Icons.spinner className="w-6 h-6 animate-spin" />
 			</div>
 		)
 	}
@@ -83,10 +83,6 @@ export default function MapComponent({ zoom, earthQuakes, userId }: MapComponent
 											})}
 										>
 											<Icons.heart className="w-4 h-4 " />
-											<span className="sr-only">Favorite</span>
-										</Button>
-										<Button size="icon" variant="ghost">
-											<Icons.externalLink className="w-4 h-4 " />
 											<span className="sr-only">Favorite</span>
 										</Button>
 									</div>

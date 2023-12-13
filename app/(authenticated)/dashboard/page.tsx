@@ -1,17 +1,17 @@
-import { getCurrentUser } from "@/lib/session"
+import { getCurrentSession } from "@/lib/session"
 import { MapWrapper } from "./_components/map-wrapper"
 import { redirect } from "next/navigation"
 
 export default async function DashboardPage() {
-	const user = await getCurrentUser()
+	const session = await getCurrentSession()
 
-	if (!user) {
+	if (!session) {
 		return redirect("/sign-in")
 	}
 
 	return (
 		<div className="h-full">
-			<MapWrapper userId={user.id} />
+			<MapWrapper userId={session.id} />
 		</div>
 	)
 }

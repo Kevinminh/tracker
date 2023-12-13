@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils"
 import { UserMenu } from "./user-menu"
 import { SegmentNav } from "./segment-nav"
-import { getCurrentUser } from "@/lib/session"
+import { getCurrentSession } from "@/lib/session"
 import { redirect } from "next/navigation"
 
 interface SidebarBottomNavProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -15,8 +15,8 @@ interface SidebarBottomNavProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const SidebarBottomNav = async ({ items }: SidebarBottomNavProps) => {
-	const user = await getCurrentUser()
-	if (!user) {
+	const session = await getCurrentSession()
+	if (!session) {
 		return redirect("/sign-in")
 	}
 
@@ -26,7 +26,7 @@ const SidebarBottomNav = async ({ items }: SidebarBottomNavProps) => {
 				<SegmentNav items={items} />
 			</div>
 
-			<UserMenu user={{ name: user.name, image: user.image, email: user.email }} />
+			<UserMenu user={{ name: session.name, image: session.image, email: session.email }} />
 		</div>
 	)
 }

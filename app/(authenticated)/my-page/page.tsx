@@ -1,9 +1,9 @@
 import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/session"
+import { getCurrentSession } from "@/lib/session"
 import { User } from "@prisma/client"
 import { redirect } from "next/navigation"
 import { FavoriteBtn } from "./_components/favorite-btn"
-import { Switch } from "@/components/ui/switch"
+
 import { EmailSubBtn } from "./_components/email-sub-btn"
 import { ActionTooltip } from "@/components/action-tooltip"
 
@@ -19,16 +19,16 @@ async function getFavorites(userId: User["id"]) {
 }
 
 export default async function MyPage() {
-	const user = await getCurrentUser()
-	if (!user) {
+	const session = await getCurrentSession()
+	if (!session) {
 		return redirect("/sign-in")
 	}
 
-	const data = await getFavorites(user.id)
+	const data = await getFavorites(session.id)
 
 	const dbUser = await db.user.findUnique({
 		where: {
-			id: user.id,
+			id: session.id,
 		},
 		select: {
 			emailSubscribed: true,
@@ -67,7 +67,7 @@ export default async function MyPage() {
 						<ActionTooltip label="Receive emails whenever a new earthquake is happening">
 							<p className="select-none">Email notification</p>
 						</ActionTooltip>
-						<p className="text-sm ml-2 text-muted-foreground">({user.email})</p>
+						<p className="text-sm ml-2 text-muted-foreground">({session.email})</p>
 					</div>
 					<EmailSubBtn isEmailSubscribed={dbUser?.emailSubscribed} />
 				</div>

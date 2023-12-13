@@ -1,5 +1,5 @@
 import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/session"
+import { getCurrentSession } from "@/lib/session"
 import { NextResponse } from "next/server"
 import { z } from "zod"
 
@@ -11,8 +11,8 @@ const routeContextSchema = z.object({
 
 export async function DELETE(req: Request, context: z.infer<typeof routeContextSchema>) {
 	try {
-		const user = await getCurrentUser()
-		if (!user) {
+		const session = await getCurrentSession()
+		if (!session) {
 			return new NextResponse("Unauthorized", { status: 401 })
 		}
 

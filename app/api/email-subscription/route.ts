@@ -1,5 +1,5 @@
 import { db } from "@/lib/db"
-import { getCurrentUser } from "@/lib/session"
+import { getCurrentSession } from "@/lib/session"
 import { NextResponse } from "next/server"
 import { z } from "zod"
 
@@ -9,8 +9,8 @@ const routeBody = z.object({
 
 export async function PATCH(req: Request) {
 	try {
-		const user = await getCurrentUser()
-		if (!user) {
+		const session = await getCurrentSession()
+		if (!session) {
 			return new NextResponse("Unauthorized", { status: 401 })
 		}
 
@@ -21,7 +21,7 @@ export async function PATCH(req: Request) {
 
 		await db.user.update({
 			where: {
-				id: user.id,
+				id: session.id,
 			},
 			data: {
 				emailSubscribed: body.isSubscribed,

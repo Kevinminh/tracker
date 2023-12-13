@@ -14,12 +14,11 @@ import {
 } from "@react-email/components"
 
 type QuakeEmailTemplateProps = {
-	email: string
 	link: string
 	location: string
 }
 
-export function QuakeEmailTemplate({ email, link, location }: QuakeEmailTemplateProps) {
+export function QuakeEmailTemplate({ link, location }: QuakeEmailTemplateProps) {
 	return (
 		<Html>
 			<Head />
@@ -41,7 +40,7 @@ export function QuakeEmailTemplate({ email, link, location }: QuakeEmailTemplate
 						</Section>
 
 						<Text className="text-[14px] leading-[24px] text-muted">
-							This mail is for {email}. If you wish to unsubscribe, please visit our settings page.
+							If you wish to unsubscribe, please visit our settings page.
 						</Text>
 
 						<Section className="mt-[32px]">
