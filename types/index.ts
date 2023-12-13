@@ -41,8 +41,6 @@ type PropertiesEurope = {
 	time: string
 	lastupdate: string
 	tz: null | string
-	felt: null | number
-	cdi: null | number
 	mmi: null | number
 	alert: null | string
 	status: string
@@ -51,12 +49,10 @@ type PropertiesEurope = {
 	net: string
 	code: string
 	ids: string
+	lat: number
+	lon: number
 	sources: string
 	types: string
-	nst: null | number
-	dmin: null | number
-	rms: number
-	gap: null | number
 	magtype: string
 	title: string
 }
