@@ -20,9 +20,9 @@ export function FeatureCard({ title, desc, children }: FeatureCardProps) {
 						<CardTitle className="mb-2">{title}</CardTitle>
 						<CardDescription className="text-base">{desc}</CardDescription>
 					</CardHeader>
-					<CardContent className=" flex items-end justify-center  ">
+					{/* <CardContent className=" flex items-end justify-center  ">
 						<div className="h-40 w-full rounded-tl-md bg-muted-foreground/10">{children}</div>
-					</CardContent>
+					</CardContent> */}
 				</Card>
 			</SpotlightCard>
 		</Spotlight>
