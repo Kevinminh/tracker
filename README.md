@@ -11,6 +11,8 @@ This project is powered by these technologies:
 ## Live demo
 
 https://tracker-mauve.vercel.app
+# Login using magic link (email) or Google.
+
 
 
 ## Getting Started
